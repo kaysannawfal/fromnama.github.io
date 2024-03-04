@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form Biodata Siswa</title>
+</head>
+<style>     
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+#formContainer {
+    background-color: #e2f7f5;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}body {
+  background: linear-gradient(to right, #7e9ede, #ffffff);
+}
+
+
+</style>
+<body>
+
+<h2 id="judulForm">Form Biodata Siswa</h2>
+
+<div id="formContainer">
+  <form id="biodataForm">
+    Nama: <input type="text" id="nama"><br><br>
+    <div id="namaWarning" style="color: red; display: none;">Nama Wajib Di Isi!</div>
+    Alamat: <input type="text" id="alamat"><br><br>
+    <div id="alamatWarning" style="color: red; display: none;">Alamat Wajib Di Isi!</div>
+    Kelas:
+    <select id="kelas">
+      <option value="" disabled selected>Pilih Kelas</option>
+      <option value=" 10"> Kelas XA</option>
+      <option value=" 11"> Kelas XB</option>
+      <option value=" 12"> Kelas XC</option>
+     
+    </select><br><br>
+    <div id="kelasWarning" style="color: red; display: none;"> Kelas Wajib Di isi</div>
+    Jenis Kelamin:
+    <input type="radio" id="pria" name="jenis_kelamin" value="Pria"> Pria
+    <input type="radio" id="wanita" name="jenis_kelamin" value="Wanita"> Wanita<br><br>
+    <button type="button" onclick="submitForm()">Submit</button>
+    <button type="button" onclick="resetForm()">Reset</button>
+  </form>
+</div>
+
+<div id="terimakasihContainer" style="visibility: hidden;">
+  <h1 style="font-size: smaller; display: none;" id="terimakasihTitle">Terima Kasih Telah Mengisi Data</h1>
+  <div id="biodataOutput"></div>
+  <button type="button" onclick="backToForm()">Kembali</button>
+</div>
+
+<script>
+  function submitForm() {
+    var nama = document.getElementById("nama").value;
+    var alamat = document.getElementById("alamat").value;
+    var kelas = document.getElementById("kelas").value;
+    var jenisKelamin = document.querySelector('input[name="jenis_kelamin"]:checked');
+
+    if (nama === "") {
+      document.getElementById("namaWarning").style.display = "block";
+      return;
+    }
+
+    if (alamat === "") {
+      document.getElementById("alamatWarning").style.display = "block";
+      return;
+    }
+
+    if (kelas === "") {
+      document.getElementById("kelasWarning").style.display = "block";
+      return;
+    }
+
+    if (!jenisKelamin) {
+      alert("Pilih Jenis Kelamin Anda");
+      return;
+    }
+
+    
+    document.getElementById("formContainer").style.display = "none"; 
+    document.getElementById("judulForm").style.display = "none"; 
+    document.getElementById("terimakasihContainer").style.visibility = "visible"; 
+    document.getElementById("terimakasihTitle").style.display = "block"; 
+
+   
+    var biodataOutput = document.getElementById("biodataOutput");
+    biodataOutput.innerHTML = "<strong>Nama:</strong> " + nama + "<br><br>" +
+                              "<strong>Alamat:</strong> " + alamat + "<br><br>" +
+                              "<strong>Kelas:</strong> " + kelas + "<br><br>" +
+                              "<strong>Jenis Kelamin:</strong> " + jenisKelamin.value + "<br><br>";
+  }
+
+  function resetForm() {
+    document.getElementById("biodataForm").reset();
+  }
+
+  function backToForm() {
+    document.getElementById("terimakasihContainer").style.visibility = "hidden"; 
+    document.getElementById("formContainer").style.display = "block"; 
+    document.getElementById("judulForm").style.display = "block"; 
+    document.getElementById("terimakasihTitle").style.display = "none"; 
+
+   
+    document.getElementById("nama").value = "";
+    document.getElementById("alamat").value = "";
+    document.getElementById("kelas").selectedIndex = 0;
+    document.getElementById("pria").checked = false;
+    document.getElementById("wanita").checked = false;
+
+    document.getElementById("namaWarning").style.display = "none";
+    document.getElementById("alamatWarning").style.display = "none";
+    document.getElementById("kelasWarning").style.display = "none";
+  }
+</script>
+
+</body>
+</html>
